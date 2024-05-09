@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const ExpenseCard = () => {
   return (
-    <div className='expense-card'>
-      <h1>Expenses - 5000</h1>
-      <button>+ Add Expenses</button>
+    <div className="expense-card card">
+      <h2>Expenses - 5000</h2>
+      <div className="centered">
+        <button className="add-expense-button">+ Add Expenses</button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ExpenseCard
+export default ExpenseCard;

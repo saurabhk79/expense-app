@@ -1,21 +1,23 @@
 import React from "react";
+import {BsXCircle, BsPencil} from "react-icons/bs"
 
 const Expense = () => {
   return (
-    <div>
+    <div className="expense">
       <div>
-        icon
+        {/* icon */}
         <span>
           <b>expense</b>
+          <br />
           <small>May 9, 2024</small>
         </span>
       </div>
 
       <div>
-        <b>$50</b>
+        <b className="expense-amount">$50</b>
 
-        <button>del</button>
-        <button>upd</button>
+        <button className="delete-button"><BsXCircle /></button>
+        <button className="update-button"><BsPencil /></button>
       </div>
     </div>
   );
