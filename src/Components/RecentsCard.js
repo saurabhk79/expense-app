@@ -12,8 +12,8 @@ const RecentsCard = () => {
       <div className="card" style={{ backgroundColor: "#fff" }}>
         <div className="recents-card">
           {wallet.transactions
-            .map(() => {
-              return <Expense />;
+            .map((expense) => {
+              return <Expense key={expense.id} expense={expense} />;
             })}
         </div>
 
