@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Expense from "./Expense";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
+import { Context } from "../context";
 
 const RecentsCard = () => {
+  const {wallet} = useContext(Context)
   return (
     <div className="recents-card">
       <h2>Recent Transactions</h2>
 
       <div className="card" style={{ backgroundColor: "#fff" }}>
         <div className="recents-card">
-          {Array(3)
-            .fill(0)
+          {wallet.transactions
             .map(() => {
               return <Expense />;
             })}

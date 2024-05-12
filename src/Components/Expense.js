@@ -1,7 +1,7 @@
 import React from "react";
 import {BsXCircle, BsPencil} from "react-icons/bs"
 
-const Expense = () => {
+const Expense = ({icon, expense_name, date, amount}) => {
   return (
     <div className="expense">
       <div>

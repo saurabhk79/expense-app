@@ -1,4 +1,4 @@
-import React, { createContext, useState,  useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const Context = createContext();
 
@@ -20,12 +20,19 @@ const ContextProvider = ({ children }) => {
     setWallet({ ...wallet, wallet_balance: new_balance });
   };
 
+  const create_expense = (expense_obj) => {
+    setWallet((prevState) => ({
+      wallet_balance: prevState.wallet_balance - expense_obj.amount,
+      expense_amount: prevState.expense_amount + expense_obj.amount,
+      transactions: [...prevState.transactions, expense_obj],
+    }));
+  };
+
   return (
-    <Context.Provider value={{ wallet, add_wallet_balance }}>
+    <Context.Provider value={{ wallet, add_wallet_balance, create_expense }}>
       {children}
     </Context.Provider>
   );
 };
-
 
 export default ContextProvider;
