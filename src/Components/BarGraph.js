@@ -7,14 +7,13 @@ const PieGraph = () => {
 
   const chart = create_dataset();
 
-  console.log(chart);
   return (
     <div className="card">
       {wallet.transactions.length !== 0 ? (
         <ReactApexChart
           options={chart.options}
           series={chart.series}
-          type="pie"
+          type="bar"
           width={190}
         />
       ) : (
