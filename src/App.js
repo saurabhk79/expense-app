@@ -2,6 +2,7 @@ import ExpenseCard from "./Components/ExpenseCard";
 import RecentsCard from "./Components/RecentsCard";
 import TopExpenses from "./Components/TopExpenses";
 import WalletCard from "./Components/WalletCard";
+// import PieGraph from "./Components/PieGraph"
 
 import { useContext } from "react";
 import "./buttons.css";

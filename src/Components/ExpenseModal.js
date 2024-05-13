@@ -24,8 +24,8 @@ const ExpenseModal = () => {
     const { title, price, category, date } = formData;
 
     if (title && price && price > 0 && category && date) {
-      const new_expense = { ...formData, id: Math.floor(Math.random() * 1000) };
-      handle_expense({ new_expense });
+      const new_expense = { ...formData, price: Number(price), id: Math.floor(Math.random() * 1000) };
+      handle_expense(new_expense);
 
       setFormData({
         title: "",

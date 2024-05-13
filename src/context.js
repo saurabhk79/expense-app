@@ -30,18 +30,29 @@ const ContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const localContext = localStorage.getItem("wallet");
-
-    if (localContext) setWallet(localContext);
+    const localContext = JSON.parse(localStorage.getItem("wallet"));
+  
+    if (localContext) {
+      setWallet(prevState => ({
+        ...prevState,
+        ...localContext
+      }));
+    }
   }, []);
+  
 
   const add_wallet_balance = (amount) => {
-    const new_balance = wallet.wallet_balance + amount;
+    const new_balance = wallet.wallet_balance + Number(amount);
     setWallet({ ...wallet, wallet_balance: new_balance });
   };
 
   const handle_expense = (expense_obj) => {
     setWallet((prevState) => ({
+      ...prevState,
+      modal_status: {
+        ...prevState.modal_status,
+        add_expense_modal : false,
+      },
       wallet_balance: prevState.wallet_balance - expense_obj.price,
       expense_amount: prevState.expense_amount + expense_obj.price,
       transactions: [...prevState.transactions, expense_obj],
@@ -67,6 +78,8 @@ const ContextProvider = ({ children }) => {
         [modal]: status,
       },
     }));
+
+    console.log(wallet.modal_status, modal, status)
   };
 
   return (
