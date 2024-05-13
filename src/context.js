@@ -28,8 +28,52 @@ const ContextProvider = ({ children }) => {
     }));
   };
 
+  const create_dataset = () => {
+    const dataset = {};
+
+    wallet.transactions.forEach((item) => {
+      const { category, price } = item;
+      if (dataset[category]) {
+        dataset[category] += price;
+      } else {
+        dataset[category] = price;
+      }
+    });
+
+    const categories = Object.keys(dataset);
+    const prices = Object.values(dataset);
+
+    const chartData = {
+      series: prices,
+      options: {
+        chart: {
+          width: 380,
+          type: "pie",
+        },
+        labels: categories,
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        ],
+      },
+    };
+
+    return chartData;
+  };
+
   return (
-    <Context.Provider value={{ wallet, add_wallet_balance, create_expense }}>
+    <Context.Provider
+      value={{ wallet, add_wallet_balance, create_expense, create_dataset }}
+    >
       {children}
     </Context.Provider>
   );

@@ -3,10 +3,17 @@ import RecentsCard from "./Components/RecentsCard";
 import TopExpenses from "./Components/TopExpenses";
 import WalletCard from "./Components/WalletCard";
 
+import PieGraph from "./Components/PieGraph";
+
 import "./buttons.css";
 import "./App.css";
+import { useContext } from "react";
+import { Context } from "./context";
 
 const App = () => {
+  const context = useContext(Context);
+
+  console.log(context, "===========>");
   return (
     <div className="App">
       <h1>Expenses Tracker</h1>
@@ -15,6 +22,7 @@ const App = () => {
         <div className="info card">
           <WalletCard />
           <ExpenseCard />
+          <PieGraph />
         </div>
 
         <RecentsCard />
