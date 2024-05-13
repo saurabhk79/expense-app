@@ -31,19 +31,27 @@ const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const localContext = JSON.parse(localStorage.getItem("wallet"));
-  
+
     if (localContext) {
-      setWallet(prevState => ({
+      setWallet((prevState) => ({
         ...prevState,
-        ...localContext
+        ...localContext,
       }));
     }
   }, []);
-  
 
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
-    setWallet({ ...wallet, wallet_balance: new_balance });
+    setWallet((prevState) => ({
+      ...wallet,
+      modal_status: {
+        ...prevState.modal_status,
+        add_wallet_modal: false,
+      },
+      wallet_balance: new_balance,
+    }));
+
+    localStorage.setItem("wallet", wallet);
   };
 
   const handle_expense = (expense_obj) => {
@@ -51,12 +59,13 @@ const ContextProvider = ({ children }) => {
       ...prevState,
       modal_status: {
         ...prevState.modal_status,
-        add_expense_modal : false,
+        add_expense_modal: false,
       },
       wallet_balance: prevState.wallet_balance - expense_obj.price,
       expense_amount: prevState.expense_amount + expense_obj.price,
       transactions: [...prevState.transactions, expense_obj],
     }));
+    localStorage.setItem("wallet", wallet);
   };
 
   const delete_expense = (id) => {
@@ -68,6 +77,7 @@ const ContextProvider = ({ children }) => {
       expense_amount: prevState.expense_amount - del_expense.price,
       transactions: new_expense_list,
     }));
+    localStorage.setItem("wallet", wallet);
   };
 
   const update_modal_status = (modal, status) => {
@@ -78,8 +88,22 @@ const ContextProvider = ({ children }) => {
         [modal]: status,
       },
     }));
+  };
 
-    console.log(wallet.modal_status, modal, status)
+  const create_dataset = () => {
+    const dataset = {};
+
+    wallet.transactions.forEach((data) => {
+      if (dataset[data.title]) {
+        dataset.title = dataset.title + data.price;
+      } else {
+        dataset[data.title] = data.price;
+      }
+    });
+
+    console.log(dataset);
+
+    return dataset;
   };
 
   return (
@@ -90,6 +114,7 @@ const ContextProvider = ({ children }) => {
         handle_expense,
         update_modal_status,
         delete_expense,
+        create_dataset
       }}
     >
       {children}

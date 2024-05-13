@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import {BsXCircle, BsPencil} from "react-icons/bs"
+import { Context } from "../context";
 
 const Expense = ({expense}) => {
+  const {wallet} = useContext(Context);
   return (
     <div className="expense">
       <div>
-        {/* icon */}
+        {wallet.category[expense.category]}
         <span>
           <b>{expense.title}</b>
           <br />

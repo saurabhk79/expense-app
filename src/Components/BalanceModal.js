@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
-import ReactModal from "react-modal";
 
 import { Context } from "../context";
+import ModalWrapper from "./Modal";
+
+import "../modal.css";
 
 const BalanceModal = () => {
   const { wallet, update_modal_status, add_wallet_balance } =
@@ -15,29 +17,32 @@ const BalanceModal = () => {
     setAmount(0);
   };
   return (
-    <ReactModal
-      isOpen={wallet.modal_status.add_wallet_modal}
-      ariaHideApp={false}
-    >
-      <h2>Add Wallet Balance</h2>
-      <form onSubmit={handleFormData}>
-        <input
-          type="text"
-          placeholder="title"
-          value={amount}
-          name="title"
-          onChange={(e) => setAmount(e.target.value)}
-        />
+    <>
+      {!wallet.modal_status.add_wallet_modal ? (
+        <></>
+      ) : (
+        <ModalWrapper>
+          <h2>Add Wallet Balance</h2>
+          <form onSubmit={handleFormData}>
+            <input
+              type="text"
+              placeholder="title"
+              value={amount}
+              name="title"
+              onChange={(e) => setAmount(e.target.value)}
+            />
 
-        <button type="submit">Add expense</button>
-        <button
-          type="button"
-          onClick={() => update_modal_status("add_wallet_modal", false)}
-        >
-          Cancel
-        </button>
-      </form>
-    </ReactModal>
+            <button type="submit">Add expense</button>
+            <button
+              type="button"
+              onClick={() => update_modal_status("add_wallet_modal", false)}
+            >
+              Cancel
+            </button>
+          </form>
+        </ModalWrapper>
+      )}
+    </>
   );
 };
 

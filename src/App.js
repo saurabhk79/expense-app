@@ -12,7 +12,7 @@ import { Context } from "./context";
 const App = () => {
   const context = useContext(Context)
 
-  console.log(context)
+  context.create_dataset()
   return (
     <div className="App">
       <h1>Expenses Tracker</h1>
