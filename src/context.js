@@ -30,19 +30,12 @@ const ContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const localContext = JSON.parse(localStorage.getItem("wallet"));
+    const localWallet = JSON.parse(localStorage.getItem("wallet"));
 
-    if (localContext) {
-      setWallet((prevState) => ({
-        ...prevState,
-        ...localContext,
-      }));
+    if (localWallet) {
+      setWallet(localWallet);
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("context", JSON.stringify(wallet));
-  }, [wallet]);
 
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
@@ -54,6 +47,7 @@ const ContextProvider = ({ children }) => {
       },
       wallet_balance: new_balance,
     }));
+    localStorage.setItem("wallet", JSON.stringify(wallet));
   };
 
   const handle_expense = (expense_obj) => {
@@ -67,6 +61,7 @@ const ContextProvider = ({ children }) => {
       expense_amount: prevState.expense_amount + expense_obj.price,
       transactions: [...prevState.transactions, expense_obj],
     }));
+    localStorage.setItem("wallet", JSON.stringify(wallet));
   };
 
   const delete_expense = (id) => {
@@ -78,6 +73,7 @@ const ContextProvider = ({ children }) => {
       expense_amount: prevState.expense_amount - del_expense.price,
       transactions: new_expense_list,
     }));
+    localStorage.setItem("wallet", JSON.stringify(wallet));
   };
 
   const update_modal_status = (modal, status) => {
@@ -90,10 +86,13 @@ const ContextProvider = ({ children }) => {
     }));
   };
 
-  const create_dataset = () => {
+  const create_dataset = (transactions) => {
     const dataset = {};
 
-    wallet.transactions.forEach((item) => {
+    console.log(transactions)
+    if (!transactions || transactions.length === 0) return dataset;
+
+    transactions.forEach((item) => {
       const { category, price } = item;
       if (dataset[category]) {
         dataset[category] += price;

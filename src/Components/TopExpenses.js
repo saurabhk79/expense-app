@@ -4,7 +4,7 @@ import BarGraph from "./BarGraph";
 const TopExpenses = () => {
   return (
     <div>
-      <h1>Top Expenses</h1>
+      <h2>Top Expenses</h2>
 
       <div className="top-expense-card card">
         <BarGraph />

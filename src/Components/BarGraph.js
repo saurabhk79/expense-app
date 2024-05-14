@@ -15,28 +15,22 @@ const BarGraph = () => {
   const prices = sortedDataset.map(([category, price]) => price);
 
   const chartData = {
-    series: prices,
     options: {
       chart: {
-        width: 380,
-        type: "pie",
+        id: "basic-bar",
       },
-      labels: categories,
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
+      xaxis: {
+        categories: categories,
+      },
     },
+    series: [
+      {
+        name: "series-1",
+        data: prices,
+      },
+    ],
   };
+
   return (
     <div className="card">
       {wallet.transactions.length !== 0 ? (

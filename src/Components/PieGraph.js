@@ -5,7 +5,7 @@ import { Context } from "../context";
 const PieGraph = () => {
   const { create_dataset, wallet } = useContext(Context);
 
-  const dataset = create_dataset();
+  const dataset = create_dataset(wallet.transactions);
 
   const categories = Object.keys(dataset);
   const prices = Object.values(dataset);
@@ -41,7 +41,7 @@ const PieGraph = () => {
           options={chartData.options}
           series={chartData.series}
           type="pie"
-          width={190}
+          width={280}
         />
       ) : (
         "Nothing to show. Create some expenses."

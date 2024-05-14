@@ -3,7 +3,7 @@ import { Context } from "../context";
 import ModalWrapper from "./Modal";
 
 const ExpenseModal = () => {
-  const { wallet, update_modal_status, handle_expense } = useContext(Context);
+  const { wallet, update_modal_status, handle_expense, categories } = useContext(Context);
   const [formData, setFormData] = useState({
     title: "",
     price: 0,
@@ -68,7 +68,7 @@ const ExpenseModal = () => {
                 <option value="" defaultChecked>
                   Category
                 </option>
-                {Object.keys(wallet.category).map((cat) => (
+                {Object.keys(categories).map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
                   </option>
