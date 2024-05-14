@@ -45,50 +45,54 @@ const ExpenseModal = () => {
       ) : (
         <ModalWrapper>
           <h2>Add Expense</h2>
-          <form onSubmit={handleFormData}>
-            <input
-              type="text"
-              placeholder="title"
-              value={formData.title}
-              name="title"
-              onChange={handleFormChange}
-            />
-            <input
-              type="text"
-              placeholder="price"
-              value={formData.price}
-              name="price"
-              onChange={handleFormChange}
-            />
+          <form onSubmit={handleFormData} className="expense-form">
+            <div className="form-set">
+              <input
+                type="text"
+                placeholder="title"
+                value={formData.title}
+                name="title"
+                onChange={handleFormChange}
+              />
+              <input
+                type="text"
+                placeholder="price"
+                value={formData.price}
+                name="price"
+                onChange={handleFormChange}
+              />
+            </div>
 
-            <br />
-
-            <select name="category" onChange={handleFormChange}>
-              <option value="" disabled defaultChecked>
-                Category
-              </option>
-              {Object.keys(wallet.category).map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
+            <div className="form-set">
+              <select name="category" onChange={handleFormChange}>
+                <option value="" defaultChecked>
+                  Category
                 </option>
-              ))}
-            </select>
-            <input
-              type="date"
-              value={formData.date}
-              name="date"
-              onChange={handleFormChange}
-            />
+                {Object.keys(wallet.category).map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="date"
+                value={formData.date}
+                name="date"
+                onChange={handleFormChange}
+              />
+            </div>
 
-            <br />
-
-            <button type="submit">Add expense</button>
-            <button
-              type="button"
-              onClick={() => update_modal_status("add_expense_modal", false)}
-            >
-              Cancel
-            </button>
+            <div className="form-set">
+              <button type="submit" className="colored">
+                Add expense
+              </button>
+              <button
+                type="button"
+                onClick={() => update_modal_status("add_expense_modal", false)}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </ModalWrapper>
       )}

@@ -23,16 +23,17 @@ const BalanceModal = () => {
       ) : (
         <ModalWrapper>
           <h2>Add Wallet Balance</h2>
-          <form onSubmit={handleFormData}>
+          <form onSubmit={handleFormData} className="balance-form">
             <input
               type="text"
-              placeholder="title"
+              placeholder="Amount"
               value={amount}
-              name="title"
+              name="amount"
+              class="balance-form"
               onChange={(e) => setAmount(e.target.value)}
             />
 
-            <button type="submit">Add expense</button>
+            <button type="submit" className="colored">Add expense</button>
             <button
               type="button"
               onClick={() => update_modal_status("add_wallet_modal", false)}

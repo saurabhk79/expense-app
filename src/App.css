@@ -1,60 +1,105 @@
 .App {
-    min-height: 100vh;
-    color: white;
-    background-color: #363636;
-    font-family: "Ubuntu", sans-serif;
-    padding: 0 24px;
+  min-height: 100vh;
+  color: white;
+  background-color: #363636;
+  font-family: "Ubuntu", sans-serif;
+  padding: 0 24px;
 }
 
 .info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    grid-column-start: 1;
-    grid-column-end: 4;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 .centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
 }
 .card {
-    background-color: rgba(255, 255, 255, 0.4);
-    padding: 24px;
-    border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 24px;
+  border-radius: 12px;
 }
 
 .expense-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
 }
 
-.recents-card{
-    grid-column-start: 1;
-    grid-column-end: 3;
-    color: black;
+.recents-card {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  color: black;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
-.recents-card  h2 {
-    color: white;
+.recents-card h2 {
+  color: white;
 }
 
 .expense {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 16px 0;
-    border-bottom: 1px solid #414141;
+  padding: 16px 0;
+  border-bottom: 1px solid #414141;
 }
 
 .expense-amount {
-    color: rgb(224, 224, 0);
-    margin-right: 24px;
+  color: rgb(224, 224, 0);
+  margin-right: 24px;
+}
+
+/* Balance modal form */
+input,
+select {
+  outline: none;
+  border: none;
+  background: #ddd;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px 2px #00000044;
+  margin: 0 4px;
+}
+
+.balance-form,
+.expense-form 
+{
+    margin: 8px 0;
+}
+.balance-form button,
+.expense-form button 
+{
+  outline: none;
+  border: none;
+  background: #ddd;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px 2px #00000044;
+  margin: 0 4px;
+}
+
+.balance-form .colored,
+.expense-form .colored {
+  background: #ffff50;
+}
+
+.form-set {
+    display: flex;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.form-set input, .form-set select, .form-set button {
+    width: 100%;
 }
