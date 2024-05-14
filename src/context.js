@@ -30,12 +30,16 @@ const ContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const localWallet = JSON.parse(localStorage.getItem("wallet"));
+    const localWallet = localStorage.getItem("wallet");
 
     if (localWallet) {
-      setWallet(localWallet);
+      setWallet(JSON.parse(localWallet));
     }
   }, []);
+
+  useEffect(() => {
+    console.log("Running")
+  }, [wallet]);
 
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
@@ -69,6 +73,7 @@ const ContextProvider = ({ children }) => {
     const new_expense_list = wallet.transactions.filter((obj) => obj.id !== id);
 
     setWallet((prevState) => ({
+      ...prevState,
       wallet_balance: prevState.wallet_balance + del_expense.price,
       expense_amount: prevState.expense_amount - del_expense.price,
       transactions: new_expense_list,
@@ -89,7 +94,23 @@ const ContextProvider = ({ children }) => {
   const create_dataset = (transactions) => {
     const dataset = {};
 
-    console.log(transactions)
+    if (!transactions || transactions.length === 0) return dataset;
+
+    transactions.forEach((item) => {
+      const { category, price } = item;
+      if (dataset[category]) {
+        dataset[category] += price;
+      } else {
+        dataset[category] = price;
+      }
+    });
+
+    return dataset;
+  };
+
+  const create_bar_dataset = (transactions) => {
+    const dataset = {};
+
     if (!transactions || transactions.length === 0) return dataset;
 
     transactions.forEach((item) => {
@@ -114,6 +135,7 @@ const ContextProvider = ({ children }) => {
         update_modal_status,
         delete_expense,
         create_dataset,
+        create_bar_dataset
       }}
     >
       {children}

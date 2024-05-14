@@ -2,14 +2,17 @@ import React, { useContext, useState } from "react";
 import { Context } from "../context";
 import ModalWrapper from "./Modal";
 
-const ExpenseModal = () => {
-  const { wallet, update_modal_status, handle_expense, categories } = useContext(Context);
-  const [formData, setFormData] = useState({
+const ExpenseModal = ({
+  data = {
     title: "",
     price: 0,
     category: "",
     date: "",
-  });
+  },
+}) => {
+  const { wallet, update_modal_status, handle_expense, categories } =
+    useContext(Context);
+  const [formData, setFormData] = useState(data);
 
   const handleFormChange = (e) => {
     setFormData((prevState) => ({

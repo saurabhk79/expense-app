@@ -3,9 +3,9 @@ import ReactApexChart from "react-apexcharts";
 import { Context } from "../context";
 
 const BarGraph = () => {
-  const { create_dataset, wallet } = useContext(Context);
+  const { create_bar_dataset, wallet } = useContext(Context);
 
-  const dataset = create_dataset();
+  const dataset = create_bar_dataset(wallet.transactions);
 
   const sortedDataset = Object.entries(dataset)
     .sort((a, b) => b[1] - a[1])

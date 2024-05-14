@@ -3,7 +3,8 @@ import { BsXCircle, BsPencil } from "react-icons/bs";
 import { Context } from "../context";
 
 const Expense = ({ expense }) => {
-  const { categories } = useContext(Context);
+  const { categories, delete_expense, update_modal_status } =
+    useContext(Context);
   return (
     <div className="expense">
       <div>
@@ -18,10 +19,16 @@ const Expense = ({ expense }) => {
       <div>
         <b className="expense-amount">{expense.price}</b>
 
-        <button className="delete-button">
+        <button
+          className="delete-button"
+          onClick={() => delete_expense(expense.id)}
+        >
           <BsXCircle />
         </button>
-        <button className="update-button">
+        <button
+          className="update-button"
+          //  onClick={() => update_modal_status()}
+        >
           <BsPencil />
         </button>
       </div>
