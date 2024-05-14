@@ -1,11 +1,14 @@
 import React from "react";
+import BarGraph from "./BarGraph";
 
 const TopExpenses = () => {
   return (
     <div>
       <h1>Top Expenses</h1>
 
-      <div className="top-expense-card">Here, top expense list!</div>
+      <div className="top-expense-card card">
+        <BarGraph />
+      </div>
     </div>
   );
 };

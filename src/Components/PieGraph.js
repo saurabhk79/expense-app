@@ -5,15 +5,41 @@ import { Context } from "../context";
 const PieGraph = () => {
   const { create_dataset, wallet } = useContext(Context);
 
-  const chart = create_dataset();
+  const dataset = create_dataset();
 
-  console.log(chart);
+  const categories = Object.keys(dataset);
+  const prices = Object.values(dataset);
+
+  const chartData = {
+    series: prices,
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: categories,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <div className="card">
       {wallet.transactions.length !== 0 ? (
         <ReactApexChart
-          options={chart.options}
-          series={chart.series}
+          options={chartData.options}
+          series={chartData.series}
           type="pie"
           width={190}
         />

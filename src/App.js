@@ -8,6 +8,7 @@ import { useContext } from "react";
 import "./buttons.css";
 import "./App.css";
 import { Context } from "./context";
+import PieGraph from "./Components/PieGraph";
 
 const App = () => {
   const context = useContext(Context)
@@ -21,6 +22,7 @@ const App = () => {
         <div className="info card">
           <WalletCard />
           <ExpenseCard />
+          <PieGraph />
         </div>
 
         <RecentsCard />

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import {BsXCircle, BsPencil} from "react-icons/bs"
+import { BsXCircle, BsPencil } from "react-icons/bs";
 import { Context } from "../context";
 
-const Expense = ({expense}) => {
-  const {wallet} = useContext(Context);
+const Expense = ({ expense }) => {
+  const { categories } = useContext(Context);
   return (
     <div className="expense">
       <div>
-        {wallet.category[expense.category]}
+        {categories[expense.category]}
         <span>
           <b>{expense.title}</b>
           <br />
@@ -18,8 +18,12 @@ const Expense = ({expense}) => {
       <div>
         <b className="expense-amount">{expense.price}</b>
 
-        <button className="delete-button"><BsXCircle /></button>
-        <button className="update-button"><BsPencil /></button>
+        <button className="delete-button">
+          <BsXCircle />
+        </button>
+        <button className="update-button">
+          <BsPencil />
+        </button>
       </div>
     </div>
   );

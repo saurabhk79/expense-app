@@ -19,15 +19,15 @@ const ContextProvider = ({ children }) => {
       add_wallet_modal: false,
       add_expense_modal: false,
     },
-    category: {
-      Health: <MdOutlineHealthAndSafety />,
-      Vehicle: <MdEmojiTransportation />,
-      PersonalCare: <MdOutlinePerson />,
-      Entertainment: <PiCheersLight />,
-      Food: <MdOutlineLocalPizza />,
-      Misc: <PiCirclesFourLight />,
-    },
   });
+  const categories = {
+    Health: <MdOutlineHealthAndSafety />,
+    Vehicle: <MdEmojiTransportation />,
+    PersonalCare: <MdOutlinePerson />,
+    Entertainment: <PiCheersLight />,
+    Food: <MdOutlineLocalPizza />,
+    Misc: <PiCirclesFourLight />,
+  };
 
   useEffect(() => {
     const localContext = JSON.parse(localStorage.getItem("wallet"));
@@ -40,6 +40,10 @@ const ContextProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("context", JSON.stringify(wallet));
+  }, [wallet]);
+
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
     setWallet((prevState) => ({
@@ -50,8 +54,6 @@ const ContextProvider = ({ children }) => {
       },
       wallet_balance: new_balance,
     }));
-
-    localStorage.setItem("wallet", wallet);
   };
 
   const handle_expense = (expense_obj) => {
@@ -65,7 +67,6 @@ const ContextProvider = ({ children }) => {
       expense_amount: prevState.expense_amount + expense_obj.price,
       transactions: [...prevState.transactions, expense_obj],
     }));
-    localStorage.setItem("wallet", wallet);
   };
 
   const delete_expense = (id) => {
@@ -77,7 +78,6 @@ const ContextProvider = ({ children }) => {
       expense_amount: prevState.expense_amount - del_expense.price,
       transactions: new_expense_list,
     }));
-    localStorage.setItem("wallet", wallet);
   };
 
   const update_modal_status = (modal, status) => {
@@ -93,15 +93,14 @@ const ContextProvider = ({ children }) => {
   const create_dataset = () => {
     const dataset = {};
 
-    wallet.transactions.forEach((data) => {
-      if (dataset[data.title]) {
-        dataset.title = dataset.title + data.price;
+    wallet.transactions.forEach((item) => {
+      const { category, price } = item;
+      if (dataset[category]) {
+        dataset[category] += price;
       } else {
-        dataset[data.title] = data.price;
+        dataset[category] = price;
       }
     });
-
-    console.log(dataset);
 
     return dataset;
   };
@@ -110,11 +109,12 @@ const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         wallet,
+        categories,
         add_wallet_balance,
         handle_expense,
         update_modal_status,
         delete_expense,
-        create_dataset
+        create_dataset,
       }}
     >
       {children}
