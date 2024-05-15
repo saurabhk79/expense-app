@@ -20,6 +20,7 @@ const ContextProvider = ({ children }) => {
       add_expense_modal: false,
     },
   });
+
   const categories = {
     Health: <MdOutlineHealthAndSafety />,
     Vehicle: <MdEmojiTransportation />,
@@ -36,10 +37,6 @@ const ContextProvider = ({ children }) => {
       setWallet(JSON.parse(localWallet));
     }
   }, []);
-
-  useEffect(() => {
-    console.log("Running")
-  }, [wallet]);
 
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
@@ -66,6 +63,7 @@ const ContextProvider = ({ children }) => {
       transactions: [...prevState.transactions, expense_obj],
     }));
     localStorage.setItem("wallet", JSON.stringify(wallet));
+
   };
 
   const delete_expense = (id) => {
@@ -79,6 +77,7 @@ const ContextProvider = ({ children }) => {
       transactions: new_expense_list,
     }));
     localStorage.setItem("wallet", JSON.stringify(wallet));
+
   };
 
   const update_modal_status = (modal, status) => {
@@ -91,51 +90,36 @@ const ContextProvider = ({ children }) => {
     }));
   };
 
-  const create_dataset = (transactions) => {
-    const dataset = {};
 
-    if (!transactions || transactions.length === 0) return dataset;
+  // const create_bar_dataset = (transactions) => {
+  //   const dataset = {};
 
-    transactions.forEach((item) => {
-      const { category, price } = item;
-      if (dataset[category]) {
-        dataset[category] += price;
-      } else {
-        dataset[category] = price;
-      }
-    });
+  //   if (!transactions || transactions.length === 0) return dataset;
 
-    return dataset;
-  };
+  //   transactions.forEach((item) => {
+  //     const { category, price } = item;
+  //     if (dataset[category]) {
+  //       dataset[category] += price;
+  //     } else {
+  //       dataset[category] = price;
+  //     }
+  //   });
 
-  const create_bar_dataset = (transactions) => {
-    const dataset = {};
-
-    if (!transactions || transactions.length === 0) return dataset;
-
-    transactions.forEach((item) => {
-      const { category, price } = item;
-      if (dataset[category]) {
-        dataset[category] += price;
-      } else {
-        dataset[category] = price;
-      }
-    });
-
-    return dataset;
-  };
+  //   return dataset;
+  // };
 
   return (
     <Context.Provider
       value={{
         wallet,
         categories,
+        // dataset,
         add_wallet_balance,
         handle_expense,
         update_modal_status,
         delete_expense,
-        create_dataset,
-        create_bar_dataset
+        // create_dataset,
+        // create_bar_dataset
       }}
     >
       {children}

@@ -1,23 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Context } from "../context";
 
 const PieGraph = () => {
-  const { create_dataset, wallet } = useContext(Context);
+  const { wallet } = useContext(Context);
+  const [dataset, setDataset] = useState({});
 
-  const dataset = create_dataset(wallet.transactions);
+  useEffect(() => {
+    create_dataset(wallet.transactions);
+  }, [wallet.transactions]);
 
-  const categories = Object.keys(dataset);
-  const prices = Object.values(dataset);
+  const create_dataset = (transactions) => {
+    const newDataset = {};
+
+    console.log(transactions);
+    transactions.forEach((item) => {
+      const { category, price } = item;
+      if (newDataset[category]) {
+        newDataset[category] += price;
+      } else {
+        newDataset[category] = price;
+      }
+    });
+
+    setDataset(newDataset);
+  };
+
+  // useEffect(() => {
+  //   create_dataset(); // Call create_dataset function on mount
+  // }, []);
 
   const chartData = {
-    series: prices,
+    series: Object.values(dataset),
     options: {
       chart: {
         width: 380,
         type: "pie",
       },
-      labels: categories,
+      labels: Object.keys(dataset),
       responsive: [
         {
           breakpoint: 480,

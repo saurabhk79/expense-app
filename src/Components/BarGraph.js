@@ -1,18 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Context } from "../context";
 
 const BarGraph = () => {
-  const { create_bar_dataset, wallet } = useContext(Context);
+  const { wallet } = useContext(Context);
+  const [dataset, setDataset] = useState([]);
 
-  const dataset = create_bar_dataset(wallet.transactions);
+  useEffect(() => {
+    create_dataset(wallet.transactions);
+  }, [wallet.transactions]);
 
-  const sortedDataset = Object.entries(dataset)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3);
+  const create_dataset = (transactions) => {
+    const newDataset = {};
 
-  const categories = sortedDataset.map(([category, price]) => category);
-  const prices = sortedDataset.map(([category, price]) => price);
+    console.log(transactions);
+    transactions.forEach((item) => {
+      const { category, price } = item;
+      if (newDataset[category]) {
+        newDataset[category] += price;
+      } else {
+        newDataset[category] = price;
+      }
+    });
+
+    const sortedDataset = Object.entries(newDataset)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3);
+
+      console.log(sortedDataset)
+
+    setDataset(sortedDataset);
+  };
 
   const chartData = {
     options: {
@@ -20,13 +38,13 @@ const BarGraph = () => {
         id: "basic-bar",
       },
       xaxis: {
-        categories: categories,
+        categories: dataset.map(([category, price]) => category),
       },
     },
     series: [
       {
         name: "series-1",
-        data: prices,
+        data: dataset.map(([category, price]) => price),
       },
     ],
   };
@@ -38,7 +56,8 @@ const BarGraph = () => {
           options={chartData.options}
           series={chartData.series}
           type="bar"
-          width={190}
+          width={380}
+          height={300}
         />
       ) : (
         "Nothing to show. Create some expenses."
