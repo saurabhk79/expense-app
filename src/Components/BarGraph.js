@@ -27,7 +27,7 @@ const BarGraph = () => {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3);
 
-      console.log(sortedDataset)
+    console.log(sortedDataset);
 
     setDataset(sortedDataset);
   };
@@ -50,18 +50,14 @@ const BarGraph = () => {
   };
 
   return (
-    <div className="card">
-      {wallet.transactions.length !== 0 ? (
-        <ReactApexChart
-          options={chartData.options}
-          series={chartData.series}
-          type="bar"
-          width={380}
-          height={300}
-        />
-      ) : (
-        "Nothing to show. Create some expenses."
-      )}
+    <div className="card" style={{color : "black"}}>
+      <ReactApexChart
+        options={chartData.options}
+        series={chartData.series}
+        type="bar"
+        width={380}
+        height={300}
+      />
     </div>
   );
 };

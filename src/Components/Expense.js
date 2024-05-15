@@ -8,7 +8,9 @@ const Expense = ({ expense }) => {
   return (
     <div className="expense">
       <div>
-        {categories[expense.category]}
+        <span className="icon-wrapper">
+          <span className="icon">{categories[expense.category]}</span>
+        </span>
         <span>
           <b>{expense.title}</b>
           <br />
@@ -17,7 +19,7 @@ const Expense = ({ expense }) => {
       </div>
 
       <div>
-        <b className="expense-amount">{expense.price}</b>
+        <b className="expense-amount">₹{expense.price}</b>
 
         <button
           className="delete-button"
