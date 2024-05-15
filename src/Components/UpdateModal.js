@@ -1,16 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../context";
 import ModalWrapper from "./Modal";
 
-const ExpenseModal = () => {
-  const { wallet, update_modal_status, handle_expense, categories } =
-    useContext(Context);
+const UpdateModal = () => {
+  const {
+    wallet,
+    update_modal_status,
+    handle_expense,
+    categories,
+    updating_expense_id,
+  } = useContext(Context);
+
   const [formData, setFormData] = useState({
     title: "",
     price: 0,
     category: "",
     date: "",
   });
+
+  useEffect(() => {
+    const expense = wallet.transactions.find(
+      (exp) => exp.id === updating_expense_id
+    );
+
+    setFormData(expense);
+  }, [updating_expense_id, wallet.transactions]);
 
   const handleFormChange = (e) => {
     setFormData((prevState) => ({
@@ -27,7 +41,6 @@ const ExpenseModal = () => {
       const new_expense = {
         ...formData,
         price: Number(price),
-        id: Math.floor(Math.random() * 1000),
       };
       handle_expense(new_expense);
 
@@ -101,4 +114,4 @@ const ExpenseModal = () => {
   );
 };
 
-export default ExpenseModal;
+export default UpdateModal;

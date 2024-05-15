@@ -90,24 +90,14 @@ const ContextProvider = ({ children }) => {
     }));
   };
 
-
-  // const create_bar_dataset = (transactions) => {
-  //   const dataset = {};
-
-  //   if (!transactions || transactions.length === 0) return dataset;
-
-  //   transactions.forEach((item) => {
-  //     const { category, price } = item;
-  //     if (dataset[category]) {
-  //       dataset[category] += price;
-  //     } else {
-  //       dataset[category] = price;
-  //     }
-  //   });
-
-  //   return dataset;
-  // };
-
+  const update_expense = (data) => {
+    // setWallet(prevState => ({
+    //   ...prevState,
+    //   transactions : [
+    //     ...
+    //   ]
+    // }))
+  }
   return (
     <Context.Provider
       value={{

@@ -55,8 +55,8 @@ const BarGraph = () => {
         options={chartData.options}
         series={chartData.series}
         type="bar"
-        width={380}
-        height={300}
+        width={300}
+        height={180}
       />
     </div>
   );

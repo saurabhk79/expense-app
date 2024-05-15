@@ -55,13 +55,13 @@ const PieGraph = () => {
   };
 
   return (
-    <div className="card">
+    <div className="card pie-card">
       {wallet.transactions.length !== 0 ? (
         <ReactApexChart
           options={chartData.options}
           series={chartData.series}
           type="pie"
-          width={280}
+          width={300}
         />
       ) : (
         "Nothing to show. Create some expenses."
