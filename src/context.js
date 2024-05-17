@@ -18,7 +18,9 @@ const ContextProvider = ({ children }) => {
     modal_status: {
       add_wallet_modal: false,
       add_expense_modal: false,
+      update_expense_modal : false
     },
+    updating_expense_id: 0,
   });
 
   const categories = {
@@ -41,7 +43,7 @@ const ContextProvider = ({ children }) => {
   const add_wallet_balance = (amount) => {
     const new_balance = wallet.wallet_balance + Number(amount);
     setWallet((prevState) => ({
-      ...wallet,
+      ...prevState,
       modal_status: {
         ...prevState.modal_status,
         add_wallet_modal: false,
@@ -63,7 +65,6 @@ const ContextProvider = ({ children }) => {
       transactions: [...prevState.transactions, expense_obj],
     }));
     localStorage.setItem("wallet", JSON.stringify(wallet));
-
   };
 
   const delete_expense = (id) => {
@@ -77,7 +78,6 @@ const ContextProvider = ({ children }) => {
       transactions: new_expense_list,
     }));
     localStorage.setItem("wallet", JSON.stringify(wallet));
-
   };
 
   const update_modal_status = (modal, status) => {
@@ -90,26 +90,38 @@ const ContextProvider = ({ children }) => {
     }));
   };
 
-  const update_expense = (data) => {
-    // setWallet(prevState => ({
-    //   ...prevState,
-    //   transactions : [
-    //     ...
-    //   ]
-    // }))
+  const update_expense = (updatedExpense) => {
+    const updatedTransactions = wallet.transactions.map((expense) =>
+      expense.id === updatedExpense.id ? updatedExpense : expense
+    );
+    setWallet((prevState) => ({
+      ...prevState,
+      transactions: updatedTransactions,
+      modal_status: {
+        ...prevState.modal_status,
+        update_expense_modal: false,
+      },
+    }));
+    localStorage.setItem("wallet", JSON.stringify(wallet));
+  };
+
+  const handle_expense_id = (id) => {
+    setWallet(prevState => ({
+      ...prevState,
+      updating_expense_id : id
+    }))
   }
   return (
     <Context.Provider
       value={{
         wallet,
         categories,
-        // dataset,
         add_wallet_balance,
         handle_expense,
         update_modal_status,
         delete_expense,
-        // create_dataset,
-        // create_bar_dataset
+        handle_expense_id,
+        update_expense
       }}
     >
       {children}

@@ -82,7 +82,7 @@ const ExpenseModal = () => {
                 onChange={handleFormChange}
               />
             </div>
-
+              
             <div className="form-set">
               <button type="submit" className="colored">
                 Add expense

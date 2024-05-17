@@ -13,7 +13,6 @@ const PieGraph = () => {
   const create_dataset = (transactions) => {
     const newDataset = {};
 
-    console.log(transactions);
     transactions.forEach((item) => {
       const { category, price } = item;
       if (newDataset[category]) {

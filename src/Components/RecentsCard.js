@@ -2,16 +2,17 @@ import React, { useContext, useState } from "react";
 import Expense from "./Expense";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { Context } from "../context";
+import UpdateModal from "./UpdateModal";
 
 const RecentsCard = () => {
   const { wallet } = useContext(Context);
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 3;
 
-  // Calculate total number of pages
-  const totalPages = Math.ceil(wallet.transactions.length / transactionsPerPage);
+  const totalPages = Math.ceil(
+    wallet.transactions.length / transactionsPerPage
+  );
 
-  // Calculate index range for current page
   const indexOfLastTransaction = currentPage * transactionsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
   const currentTransactions = wallet.transactions.slice(
@@ -39,15 +40,25 @@ const RecentsCard = () => {
         </div>
 
         <div className="centered">
-          <button className="arrow-button" onClick={prevPage} disabled={currentPage === 1}>
+          <button
+            className="arrow-button"
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
             <BsArrowLeft />
           </button>
           <button className="page-button">{currentPage}</button>
-          <button className="arrow-button" onClick={nextPage} disabled={currentPage === totalPages}>
+          <button
+            className="arrow-button"
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
             <BsArrowRight />
           </button>
         </div>
       </div>
+
+      {wallet.modal_status.update_expense_modal ? <UpdateModal /> : <></>}
     </div>
   );
 };

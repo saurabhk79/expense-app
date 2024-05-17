@@ -13,7 +13,6 @@ const BarGraph = () => {
   const create_dataset = (transactions) => {
     const newDataset = {};
 
-    console.log(transactions);
     transactions.forEach((item) => {
       const { category, price } = item;
       if (newDataset[category]) {
@@ -26,8 +25,6 @@ const BarGraph = () => {
     const sortedDataset = Object.entries(newDataset)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3);
-
-    console.log(sortedDataset);
 
     setDataset(sortedDataset);
   };

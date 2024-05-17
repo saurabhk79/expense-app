@@ -10,9 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column: span 3;
 }
 
 .centered {
@@ -21,33 +19,35 @@
   justify-content: center;
   margin-top: 24px;
 }
+
 .card {
   background-color: rgba(255, 255, 255, 0.4);
   padding: 24px;
   border-radius: 12px;
-  gap: 48px;
+  gap: 24px;
 }
 
-.wallet-card, .expense-card, pie-card {
-  height: 100%;
+.wallet-card,
+.expense-card,
+.pie-card {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 300px;
-  display: flex;align-items: center;justify-content: center;flex-direction: column;
-
 }
 
 .expense-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 24px;
-  height: 100vh;
+  height: auto;
 }
 
 .recents-card {
-  grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column: span 2;
   color: black;
-
   margin-bottom: 8px;
 }
 
@@ -59,7 +59,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 16px 0;
   border-bottom: 1px solid #414141;
 }
@@ -71,7 +70,6 @@
 
 .icon-wrapper {
   display: inline-block;
-  padding: auto;
   background-color: #00000044;
   height: 30px;
   width: 30px;
@@ -84,9 +82,16 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-
   color: white;
 }
+
+.expense small {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  color: #ccc;
+}
+
 /* Balance modal form */
 input,
 select {

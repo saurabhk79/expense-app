@@ -1,17 +1,14 @@
+// In UpdateModal.js
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../context";
 import ModalWrapper from "./Modal";
 
 const UpdateModal = () => {
-  const {
-    wallet,
-    update_modal_status,
-    handle_expense,
-    categories,
-    updating_expense_id,
-  } = useContext(Context);
+  const { wallet, update_modal_status, update_expense, categories } =
+    useContext(Context);
 
   const [formData, setFormData] = useState({
+    id: null,
     title: "",
     price: 0,
     category: "",
@@ -19,98 +16,89 @@ const UpdateModal = () => {
   });
 
   useEffect(() => {
-    const expense = wallet.transactions.find(
-      (exp) => exp.id === updating_expense_id
+    const expenseToEdit = wallet.transactions.find(
+      (expense) => expense.id === wallet.updating_expense_id
     );
+    if (expenseToEdit) setFormData(expenseToEdit);
+  }, [wallet.updating_expense_id, wallet.transactions]);
 
-    setFormData(expense);
-  }, [updating_expense_id, wallet.transactions]);
-
-  const handleFormChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
-  const handleFormData = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { title, price, category, date } = formData;
+    update_expense(formData);
 
-    if (title && price && price > 0 && category && date) {
-      const new_expense = {
-        ...formData,
-        price: Number(price),
-      };
-      handle_expense(new_expense);
-
-      setFormData({
-        title: "",
-        price: 0,
-        category: "",
-        date: "",
-      });
-    }
+    update_modal_status("update_expense_modal", false);
+    setFormData({
+      id: null,
+      title: "",
+      price: 0,
+      category: "",
+      date: "",
+    });
   };
+
   return (
-    <>
-      {!wallet.modal_status.add_expense_modal ? (
-        <></>
-      ) : (
-        <ModalWrapper>
-          <h2>Add Expense</h2>
-          <form onSubmit={handleFormData} className="expense-form">
-            <div className="form-set">
-              <input
-                type="text"
-                placeholder="title"
-                value={formData.title}
-                name="title"
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                placeholder="price"
-                value={formData.price}
-                name="price"
-                onChange={handleFormChange}
-              />
-            </div>
-
-            <div className="form-set">
-              <select name="category" onChange={handleFormChange}>
-                <option value="" defaultChecked>
-                  Category
-                </option>
-                {Object.keys(categories).map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="date"
-                value={formData.date}
-                name="date"
-                onChange={handleFormChange}
-              />
-            </div>
-
-            <div className="form-set">
-              <button type="submit" className="colored">
-                Add expense
-              </button>
-              <button
-                type="button"
-                onClick={() => update_modal_status("add_expense_modal", false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </ModalWrapper>
-      )}
-    </>
+    <ModalWrapper modal_name="update_expense_modal">
+      <h2>Update Expense</h2>
+      <form className="expense-form" onSubmit={handleSubmit}>
+        <div className="form-set">
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-set">
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Category</option>
+            {Object.keys(categories).map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-set">
+          <button type="submit" className="colored">
+            Add expense
+          </button>
+          <button
+            type="button"
+            onClick={() => update_modal_status("update_expense_modal", false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </ModalWrapper>
   );
 };
 

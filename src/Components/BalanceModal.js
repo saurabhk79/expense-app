@@ -29,7 +29,7 @@ const BalanceModal = () => {
               placeholder="Amount"
               value={amount}
               name="amount"
-              class="balance-form"
+              className="balance-form"
               onChange={(e) => setAmount(e.target.value)}
             />
 

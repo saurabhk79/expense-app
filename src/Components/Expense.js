@@ -1,9 +1,10 @@
+// In Expense.js
 import React, { useContext } from "react";
 import { BsXCircle, BsPencil } from "react-icons/bs";
 import { Context } from "../context";
 
 const Expense = ({ expense }) => {
-  const { categories, delete_expense, update_modal_status } =
+  const { categories, delete_expense, update_modal_status, handle_expense_id } =
     useContext(Context);
   return (
     <div className="expense">
@@ -29,7 +30,10 @@ const Expense = ({ expense }) => {
         </button>
         <button
           className="update-button"
-          //  onClick={() => update_modal_status()}
+          onClick={() => {
+            update_modal_status("update_expense_modal", true);
+            handle_expense_id(expense.id);
+          }}
         >
           <BsPencil />
         </button>
