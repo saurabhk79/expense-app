@@ -6,6 +6,7 @@ import WalletCard from "./Components/WalletCard";
 
 import "./buttons.css";
 import "./App.css";
+import "./media-query.css"
 import ContextProvider from "./context";
 import PieGraph from "./Components/PieGraph";
 

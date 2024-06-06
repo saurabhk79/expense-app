@@ -7,7 +7,7 @@ const ExpenseCard = () => {
 
   return (
     <div className="expense-card card">
-      <h1>Expenses - {wallet.expense_amount}</h1>
+      <div className="expense-head">Expenses - {wallet.expense_amount}</div>
       <div className="centered">
         <button
           className="add-expense-button"

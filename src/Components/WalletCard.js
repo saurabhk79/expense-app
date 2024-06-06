@@ -7,7 +7,7 @@ const WalletCard = () => {
 
   return (
     <div className="wallet-card card">
-      <h1>Wallet Balance - {wallet.wallet_balance}</h1>
+      <div className="wallet-head">Wallet - {wallet.wallet_balance}</div>
       <div className="centered">
         <button
           className="add-balance-button"

@@ -1,0 +1,38 @@
+@media (max-width: 1024px) {
+  .wallet-head {
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .expense-head {
+    font-size: 20px;
+    font-weight: 900;
+  }
+  .recents-card {
+    grid-column: span 2;
+  }
+  .add-expense-button {
+    padding: 8px 18px;
+  }
+
+  .add-balance-button {
+    padding: 8px 18px;
+  }
+  .expense-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 840px) {
+  .info {
+    flex-wrap: wrap;
+  }
+
+  .expense-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .recents-card {
+    grid-column: span 3;
+  }
+}
