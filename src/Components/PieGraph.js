@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Context } from "../context";
 
@@ -6,14 +6,9 @@ const PieGraph = () => {
   const { wallet } = useContext(Context);
   const [dataset, setDataset] = useState({});
 
-  useEffect(() => {
-    create_dataset(wallet.transactions);
-  }, [wallet.transactions]);
-
-  const create_dataset = (transactions) => {
+  const memoizedDataset = useMemo(() => {
     const newDataset = {};
-
-    transactions.forEach((item) => {
+    wallet.transactions.forEach((item) => {
       const { category, price } = item;
       if (newDataset[category]) {
         newDataset[category] += price;
@@ -21,13 +16,12 @@ const PieGraph = () => {
         newDataset[category] = price;
       }
     });
+    return newDataset;
+  }, [wallet.transactions]);
 
-    setDataset(newDataset);
-  };
-
-  // useEffect(() => {
-  //   create_dataset(); // Call create_dataset function on mount
-  // }, []);
+  useEffect(() => {
+    setDataset(memoizedDataset);
+  }, [memoizedDataset]);
 
   const chartData = {
     series: Object.values(dataset),
